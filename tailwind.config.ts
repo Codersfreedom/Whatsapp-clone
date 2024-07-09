@@ -1,13 +1,13 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -17,6 +17,26 @@ const config = {
         "2xl": "1400px",
       },
     },
+
+    // Other objects...
+
+    backgroundColor: {
+      container: "hsl(var(--container))",
+      "gray-primary": "hsl(var(--gray-primary))",
+      "gray-secondary": "hsl(var(--gray-secondary))",
+      "gray-tertiary": "hsl(var(--gray-tertiary))",
+      "left-panel": "hsl(var(--left-panel))",
+      "chat-hover": "hsl(var(--chat-hover))",
+      "green-primary": "hsl(var(--green-primary))",
+      "green-secondary": "hsl(var(--green-secondary))",
+      "green-chat": "hsl(var(--green-chat))",
+    },
+    backgroundImage: {
+      "chat-tile-light": "url('/bg-light.png')",
+      "chat-tile-dark": "url('/bg-dark.png')",
+    },
+
+    // Rest of the file ...
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -53,25 +73,6 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      // Other objects...
-
-    backgroundColor: {
-      container: "hsl(var(--container))",
-      "gray-primary": "hsl(var(--gray-primary))",
-      "gray-secondary": "hsl(var(--gray-secondary))",
-      "gray-tertiary": "hsl(var(--gray-tertiary))",
-      "left-panel": "hsl(var(--left-panel))",
-      "chat-hover": "hsl(var(--chat-hover))",
-      "green-primary": "hsl(var(--green-primary))",
-      "green-secondary": "hsl(var(--green-secondary))",
-      "green-chat": "hsl(var(--green-chat))",
-    },
-    backgroundImage: {
-      "chat-tile-light": "url('/bg-light.png')",
-      "chat-tile-dark": "url('/bg-dark.png')",
-    },
-
-// Rest of the file ...
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -94,6 +95,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
