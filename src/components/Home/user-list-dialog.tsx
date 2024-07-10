@@ -25,7 +25,7 @@ const UserListDialog = () => {
 	const [renderedImage, setRenderedImage] = useState("");
 
 	const imgRef = useRef<HTMLInputElement>(null);
-	const dialogRef = useRef<HTMLInputElement>(null);
+	const dialogRef = useRef<HTMLButtonElement>(null);
 
 	const createConversation = useMutation(api.conversations.createConversation)
 	const generatedUrl = useMutation(api.conversations.uplodeUrl);
