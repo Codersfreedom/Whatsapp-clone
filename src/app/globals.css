@@ -104,7 +104,10 @@
 
 	body {
 		font-family: 'Inter', sans-serif;
+	
 	}
+
+	
 
 	/* CLASSES ADDED BY US */
 	.left-panel {
@@ -187,3 +190,4 @@
 		background-color: hsl(var(--container));
 	}
 }
+

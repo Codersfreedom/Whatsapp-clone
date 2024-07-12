@@ -78,3 +78,55 @@ export const getMessages = query({
     return messagesWithSender;
   },
 });
+
+export const sendImage = mutation({
+  args: {
+    sender: v.id("users"),
+    imageId: v.id("_storage"),
+    conversation: v.id("conversations"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new ConvexError("Unauthorized");
+
+    const content = (await ctx.storage.getUrl(args.imageId)) as string;
+
+
+
+ 
+    await ctx.db.insert("messages", {
+      sender: args.sender,
+      content: content,
+      conversation: args.conversation,
+      messageType: "image",
+    });
+
+    // TODO: Add chatgpt conversation here
+  },
+});
+
+export const sendVideo = mutation({
+  args: {
+    sender: v.id("users"),
+    videoId: v.id("_storage"),
+    conversation: v.id("conversations"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new ConvexError("Unauthorized");
+
+    const content = (await ctx.storage.getUrl(args.videoId)) as string;
+
+
+
+ 
+    await ctx.db.insert("messages", {
+      sender: args.sender,
+      content: content,
+      conversation: args.conversation,
+      messageType: "video",
+    });
+
+    // TODO: Add chatgpt conversation here
+  },
+});

@@ -4,7 +4,7 @@ import { create } from "zustand";
 export type Conversation = {
   _id: Id<"conversations">;
   image?: string;
-  participants: Id<"users">;
+  participants: Id<"users">[];
   isGroup: boolean;
   name?: string;
   groupImage?: string;
@@ -34,7 +34,7 @@ export interface IMessage {
   _id: string;
   content: string;
   _creationTime: number;
-  messageType: "text" | "video";
+  messageType: "text" | "image" | "video";
   sender: {
     _id: Id<"users">;
     image: string;

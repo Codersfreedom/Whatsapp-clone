@@ -16,6 +16,7 @@ import { ImageIcon, MessageSquareDiff } from "lucide-react";
 import {Id} from "../../../convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 import {api} from "../../../convex/_generated/api";
+import { useConversationStore } from "@/store/chat-store";
 
 const UserListDialog = () => {
 	const [selectedUsers, setSelectedUsers] = useState<Id<"users">[]>([]);
@@ -23,7 +24,7 @@ const UserListDialog = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [selectedImage, setSelectedImage] = useState<File | null>(null);
 	const [renderedImage, setRenderedImage] = useState("");
-
+	const {setSelectedConversation} = useConversationStore()
 	const imgRef = useRef<HTMLInputElement>(null);
 	const dialogRef = useRef<HTMLButtonElement>(null);
 
@@ -68,6 +69,17 @@ const UserListDialog = () => {
 			setSelectedUsers([]);
 			setGroupName("");
 			setSelectedImage(null);
+
+			const conversationName = isGroup ? groupName : users?.find((user)=>user._id ===selectedUsers[0])?.name;
+			setSelectedConversation({
+				_id:conversationId,
+				participants:selectedUsers,
+				isGroup,
+				image:isGroup?renderedImage:users?.find((user)=>user._id ===selectedUsers[0])?.image,
+				name:conversationName,
+				admin:me?._id!,
+			});
+
 			
 		} catch (error) {
 			console.log(error)

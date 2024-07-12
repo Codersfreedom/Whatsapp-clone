@@ -39,7 +39,7 @@ const GroupMembersDialog = ({
                 >
                   <Avatar className="overflow-visible">
                     {user.isOnline && (
-                      <div className="absolute top-0 right-0 w-2 h-2 bg-green-500 rounded-full border-2 border-foreground" />
+                      <div className="absolute top-0 right-0 w-2 h-2 bg-green-primary rounded-full border-2 border-foreground" />
                     )}
                     <AvatarImage
                       src={user.image}
