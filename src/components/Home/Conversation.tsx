@@ -2,7 +2,7 @@ import { formatDate } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { MessageSeenSvg } from "@/lib/svgs";
 import { ImageIcon, Users, VideoIcon } from "lucide-react";
-import { useQueries, useQuery } from "convex/react";
+import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { useConversationStore } from "@/store/chat-store";
 
@@ -24,7 +24,7 @@ const Conversation = ({ conversation }: { conversation: any }) => {
       >
         <Avatar className="border border-gray-900 overflow-visible relative">
           {conversation.isOnline && (
-            <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-foreground" />
+            <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-green-primary rounded-full border-2 border-foreground" />
           )}
           <AvatarImage
             src={conversationImage || "/placeholder.png"}

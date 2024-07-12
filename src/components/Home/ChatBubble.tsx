@@ -1,11 +1,14 @@
 import { MessageSeenSvg } from "@/lib/svgs";
 import { IMessage, useConversationStore } from "@/store/chat-store";
+import ChatBubbleAvatar from "./ChatBubbleAvatar";
+import DateIndicator from "./DateInicator";
 
 type ChatBubbleProps = {
   message: IMessage;
   me: any;
+  previousMessage?:IMessage;
 };
-const ChatBubble = ({ message, me }: ChatBubbleProps) => {
+const ChatBubble = ({ message, me,previousMessage}: ChatBubbleProps) => {
   const date = new Date(message._creationTime);
   const hour = date.getHours().toString().padStart(2, "0");
   const minute = date.getMinutes().toString().padStart(2, "0");
@@ -21,7 +24,14 @@ const ChatBubble = ({ message, me }: ChatBubbleProps) => {
   if (!isMe) {
     return (
       <>
+      <DateIndicator message={message} previousMessage={previousMessage} />
         <div className="flex gap-1 w-2/3 ">
+          <ChatBubbleAvatar
+            message={message}
+            isMember={isMember}
+            isGroup={isGroup}
+          />
+
           <div
             className={`flex flex-col z-20 max-w-fit px-2 pt-1 rounded-md shadow-md relative ${bgClass}`}
           >
@@ -35,6 +45,7 @@ const ChatBubble = ({ message, me }: ChatBubbleProps) => {
   }
   return (
     <>
+    <DateIndicator message={message} previousMessage={previousMessage} />
       <div className="flex gap-1 w-2/3 ml-auto">
         <div
           className={`flex  z-20 max-w-fit px-2 pt-1 rounded-md shadow-md relative ml-auto ${bgClass}`}
@@ -50,7 +61,7 @@ const ChatBubble = ({ message, me }: ChatBubbleProps) => {
 export default ChatBubble;
 
 const OtherMessageIndicator = () => (
-	<div className='absolute bg-white dark:bg-gray-primary top-0 -left-[4px] w-3 h-3 rounded-bl-full' />
+  <div className="absolute bg-white dark:bg-gray-primary top-0 -left-[4px] w-3 h-3 rounded-bl-full" />
 );
 
 const SelfMessageIndicator = () => (
