@@ -8,6 +8,7 @@ export const sendTextMessage = mutation({
     sender: v.string(),
     content: v.string(),
     conversation: v.id("conversations"),
+    
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -42,8 +43,18 @@ export const sendTextMessage = mutation({
       await ctx.scheduler.runAfter(0,api.openai.chat,{
         messageBody:args.content,
         conversation:args.conversation,
+        
       })
     }
+
+    if(args.content.startsWith("@dall-e")){
+      await ctx.scheduler.runAfter(0,api.openai.dall_e,{
+        messageBody:args.content,
+        conversation:args.conversation,
+      })
+    }
+
+
   },
 });
 
@@ -51,12 +62,13 @@ export const sendChatGptMessage = mutation({
   args:{
     content:v.string(),
     conversation:v.id("conversations"),
+    messageType:v.union(v.literal("text"),v.literal("image")),
   },
   handler: async (ctx,args) =>{
     await ctx.db.insert("messages",{
       content:args.content,
       sender:"ChatGpt",
-      messageType:"text",
+      messageType:args.messageType,
       conversation:args.conversation,
     })
   }
@@ -83,9 +95,11 @@ export const getMessages = query({
 
     const messagesWithSender = await Promise.all(
       messages.map(async (message) => {
+        const image = message.messageType ==="text" ? "/gpt.png" :"/dall-e.png";
         if(message.sender ==="ChatGPT"){
-          return {...message,sender:{name:"ChatGPT",image:"/gpt.png"}}
+          return {...message,sender:{name:"ChatGPT",image:image}}
         }
+        
         let sender;
 
         if (userProfileCache.has(message.sender)) {
